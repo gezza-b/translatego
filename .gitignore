@@ -1,3 +1,8 @@
 *.zip
 *.bak
 *.log
+/bin/**
+/pkg/**
+/src/github.com
+/src/golang.org
+
