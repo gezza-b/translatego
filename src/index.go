@@ -14,16 +14,21 @@ import (
 
 const _eng string = "eng"
 
+func getLangAsString(result *comprehend.DetectDominantLanguageOutput) string {
+	fmt.Println(result.Languages[0])
+	return "xyz"
+}
+
 func GetLang(orig string) string {
 	sess, _ := session.NewSession(&aws.Config{
-		Region: aws.String("ap-southeast-2")},
+		Region: aws.String("us-east-2")},
 	)
 	svc := comprehend.New(sess)
 	result, err := svc.DetectDominantLanguage(&comprehend.DetectDominantLanguageInput{Text: aws.String(orig)})
 	if err != nil {
 		fmt.Println("GetLang:error: ", err)
 	}
-	fmt.Println(result)
+	getLangAsString(result)
 	return _eng
 }
 
