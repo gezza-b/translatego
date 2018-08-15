@@ -8,15 +8,15 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 
-	//"github.com/aws/aws-sdk-go/service/translate"
 	"github.com/aws/aws-sdk-go/service/comprehend"
+	"github.com/aws/aws-sdk-go/service/translate"
 )
 
 const _eng string = "eng"
+const _germ string = "de"
 
 func getLangAsString(result *comprehend.DetectDominantLanguageOutput) string {
-	fmt.Println(result.Languages[0])
-	return "xyz"
+	return *result.Languages[0].LanguageCode
 }
 
 func GetLang(orig string) string {
@@ -28,11 +28,32 @@ func GetLang(orig string) string {
 	if err != nil {
 		fmt.Println("GetLang:error: ", err)
 	}
-	getLangAsString(result)
+	return getLangAsString(result)
+}
+
+func getToLang(fromLang string) string {
+	if fromLang == _eng {
+		return _germ
+	}
 	return _eng
+}
+func Translate(fromLang string, phrase string) string {
+	var toLang = getToLang(fromLang)
+	sess, _ := session.NewSession(&aws.Config{
+		Region: aws.String("us-east-2")},
+	)
+	svc := translate.New(sess)
+	// result, err := svc.TranslatedText(&translate.TranslatedText{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), TranslatedText: aws.String(phrase)})
+
+	//DetectDominantLanguage(&comprehend.DetectDominantLanguageInput{Text: aws.String(orig)})
+	fmt.Println(svc)
+	return toLang
 }
 
 func main() {
 	// fmt.Println(GetLang("hi"))
-	fmt.Println(GetLang("Guten Tag"))
+	var phrase string = "Guten Tag"
+	var fromLang string = GetLang(phrase)
+	fmt.Println(fromLang)
+	Translate(fromLang, phrase)
 }
