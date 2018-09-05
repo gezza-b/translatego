@@ -39,14 +39,16 @@ func getToLang(fromLang string) string {
 }
 func Translate(fromLang string, phrase string) string {
 	var toLang = getToLang(fromLang)
+	fmt.Println("toLang: ", toLang)
 	sess, _ := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-2")},
 	)
 	svc := translate.New(sess)
+	svc.Translate(&translate.Translate{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), TranslatedText: aws.String(phrase)})
 	// result, err := svc.TranslatedText(&translate.TranslatedText{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), TranslatedText: aws.String(phrase)})
 
-	//DetectDominantLanguage(&comprehend.DetectDominantLanguageInput{Text: aws.String(orig)})
-	fmt.Println(svc)
+	//result, err := svc.DetectDominantLanguage(&comprehend.DetectDominantLanguageInput{Text: aws.String(orig)})
+	fmt.Println("T::", svc)
 	return toLang
 }
 
@@ -54,6 +56,6 @@ func main() {
 	// fmt.Println(GetLang("hi"))
 	var phrase string = "Guten Tag"
 	var fromLang string = GetLang(phrase)
-	fmt.Println(fromLang)
+	fmt.Println("from: ", fromLang)
 	Translate(fromLang, phrase)
 }
