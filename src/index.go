@@ -53,8 +53,13 @@ func Translate(fromLang string, phrase string) string {
 }
 
 func main() {
+	//lambda.Start(Handler)
 	var phrase string = "Guten Tag"
 	var fromLang string = GetLang(phrase)
 	var output string = Translate(fromLang, phrase)
 	fmt.Println(output)
 }
+
+// func Handler() (Response, error) {
+// 	return NewResponse("Hello, World"), nil
+// }
