@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/translate"
 )
 
-const _eng string = "eng"
+const _eng string = "en"
 const _germ string = "de"
 
 func getLangAsString(result *comprehend.DetectDominantLanguageOutput) string {
@@ -37,25 +37,24 @@ func getToLang(fromLang string) string {
 	}
 	return _eng
 }
+
 func Translate(fromLang string, phrase string) string {
 	var toLang = getToLang(fromLang)
-	fmt.Println("toLang: ", toLang)
 	sess, _ := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-2")},
 	)
 	svc := translate.New(sess)
-	svc.Translate(&translate.Translate{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), TranslatedText: aws.String(phrase)})
-	// result, err := svc.TranslatedText(&translate.TranslatedText{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), TranslatedText: aws.String(phrase)})
-
-	//result, err := svc.DetectDominantLanguage(&comprehend.DetectDominantLanguageInput{Text: aws.String(orig)})
-	fmt.Println("T::", svc)
-	return toLang
+	req, resp := svc.TextRequest(&translate.TextInput{SourceLanguageCode: aws.String(fromLang), TargetLanguageCode: aws.String(toLang), Text: aws.String(phrase)})
+	err := req.Send()
+	if err != nil {
+		return ""
+	}
+	return resp.String()
 }
 
 func main() {
-	// fmt.Println(GetLang("hi"))
 	var phrase string = "Guten Tag"
 	var fromLang string = GetLang(phrase)
-	fmt.Println("from: ", fromLang)
-	Translate(fromLang, phrase)
+	var output string = Translate(fromLang, phrase)
+	fmt.Println(output)
 }
