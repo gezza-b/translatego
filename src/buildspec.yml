@@ -6,12 +6,19 @@ env:
 phases:
   install:
     commands:
-    - go get -u github.com/golang/lint/golint
-    - go get -u github.com/aws/aws-sdk-go/aws
-	  - go get -u github.com/aws/aws-sdk-go/aws/session
-	  - go get -u github.com/aws/aws-lambda-go/lambda
-	  - go get -u github.com/aws/aws-sdk-go/service/comprehend
-	  - go get -u github.com/aws/aws-sdk-go/service/translate
+      # AWS Codebuild Go images use /go for the $GOPATH so let's copy our 
+      # application source code into that directory structure.
+      - mkdir -p "/go/src/$(dirname ${PACKAGE})"
+      - ln -s "${CODEBUILD_SRC_DIR}" "/go/src/${PACKAGE}" 
+      
+      # Print all environment variables (handy for AWS CodeBuild logs)
+      - env
+      - go get -u github.com/golang/lint/golint
+      - go get -u github.com/aws/aws-sdk-go/aws
+      - go get -u github.com/aws/aws-sdk-go/aws/session
+      - go get -u github.com/aws/aws-lambda-go/lambda
+      - go get -u github.com/aws/aws-sdk-go/service/comprehend
+      - go get -u github.com/aws/aws-sdk-go/service/translate
 
   pre_build: 
     commands:
