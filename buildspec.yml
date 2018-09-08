@@ -14,11 +14,11 @@ phases:
       # Print all environment variables (handy for AWS CodeBuild logs)
       - env
       - go get -u github.com/golang/lint/golint
-      - go get -u github.com/aws/aws-sdk-go/aws
-      - go get -u github.com/aws/aws-sdk-go/aws/session
-      - go get -u github.com/aws/aws-lambda-go/lambda
-      - go get -u github.com/aws/aws-sdk-go/service/comprehend
-      - go get -u github.com/aws/aws-sdk-go/service/translate
+      #- go get -u github.com/aws/aws-sdk-go/aws
+      #- go get -u github.com/aws/aws-sdk-go/aws/session
+      #- go get -u github.com/aws/aws-lambda-go/lambda
+      #- go get -u github.com/aws/aws-sdk-go/service/comprehend
+      #- go get -u github.com/aws/aws-sdk-go/service/translate
 
   pre_build: 
     commands:
