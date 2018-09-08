@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/service/comprehend"
 	"github.com/aws/aws-sdk-go/service/translate"
 )
@@ -53,13 +54,51 @@ func Translate(fromLang string, phrase string) string {
 }
 
 func main() {
-	//lambda.Start(Handler)
+	lambda.Start(Handler)
+}
+
+// func Handler() (Response, error) {
+// 	var phrase string = "Guten Tag"
+// 	var fromLang string = GetLang(phrase)
+// 	var output string = Translate(fromLang, phrase)
+// 	fmt.Println(output)
+// 	return Response{Message: output}, nil
+// }
+
+type Response struct {
+	Version string  `json:"version"`
+	Body    ResBody `json:"response"`
+}
+
+// ResBody is the actual body of the response
+type ResBody struct {
+	OutputSpeech     Payload ` json:"outputSpeech,omitempty"`
+	ShouldEndSession bool    `json:"shouldEndSession"`
+}
+type Payload struct {
+	Type string `json:"type,omitempty"`
+	Text string `json:"text,omitempty"`
+}
+
+// NewResponse builds a simple Alexa session response
+func NewResponse(speech string) Response {
+	return Response{
+		Version: "1.0",
+		Body: ResBody{
+			OutputSpeech: Payload{
+				Type: "PlainText",
+				Text: speech,
+			},
+			ShouldEndSession: true,
+		},
+	}
+}
+
+// Handler is the lambda hander
+func Handler() (Response, error) {
 	var phrase string = "Guten Tag"
 	var fromLang string = GetLang(phrase)
 	var output string = Translate(fromLang, phrase)
 	fmt.Println(output)
+	return NewResponse(output), nil
 }
-
-// func Handler() (Response, error) {
-// 	return NewResponse("Hello, World"), nil
-// }
