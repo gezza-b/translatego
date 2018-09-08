@@ -50,7 +50,7 @@ phases:
     commands:
       - echo starting the build phase
       # Build our go application
-      - go build -o index
+      - go build -o src/index
 
       # Package our application with AWS SAM
       - aws cloudformation package --template-file template.yml --s3-bucket ${S3_BUCKET} --output-template-file packaged.yml
