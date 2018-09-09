@@ -2,3 +2,6 @@ set GOOS=linux
 set GOARCH=amd64
 go build -o build/index src/index.go
 zip build/deployment.zip build/index
+
+//----
+env GOOS=linux go build -o build/index src/index.go

@@ -43,7 +43,7 @@ phases:
       #- go vet .
 
       # Run all tests included with our application
-      - go test .
+      #- go test .
     finally:
       - echo end of pre-build phase
 
@@ -52,7 +52,7 @@ phases:
       - echo starting the build phase
       # Build our go application
       - cd "/go/src/${PACKAGE}"
-      - go build -a src/index.go
+      - env GOOS=linux go build -a src/index.go
 
       # Package our application with AWS SAM
       - aws cloudformation package --template-file template.yml --s3-bucket ${S3_BUCKET} --output-template-file packaged.yml
