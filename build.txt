@@ -5,3 +5,7 @@ zip build/deployment.zip build/index
 
 //----
 env GOOS=linux go build -o build/index src/index.go
+
+//---
+set GOOS=windows
+set GOARCH=amd64
