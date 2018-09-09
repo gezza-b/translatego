@@ -3,6 +3,7 @@
 *.log
 /bin/**
 /pkg/**
+/build/**
 /src/github.com
 /src/golang.org
 

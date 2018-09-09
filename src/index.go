@@ -1,7 +1,5 @@
 package main
 
-//https://docs.aws.amazon.com/sdk-for-go/api/service/comprehend/
-
 import (
 	"fmt"
 
