@@ -52,7 +52,7 @@ phases:
       - echo starting the build phase
       # Build our go application
       - cd "/go/src/${PACKAGE}"
-      - env GOOS=linux go build -a src/index.go
+      - go build -a src/index.go
 
       # Package our application with AWS SAM
       - aws cloudformation package --template-file template.yml --s3-bucket ${S3_BUCKET} --output-template-file packaged.yml
