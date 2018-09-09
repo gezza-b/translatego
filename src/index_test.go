@@ -6,8 +6,9 @@ import (
 )
 
 func TestLang(t *testing.T) {
-	origLang := GetLang("hi")
-	if origLang != "eng" {
-		t.Errorf("GetLang was incorrect, got: %d, want: %d.", origLang, "eng")
+	var input string = "How are you?"
+	origLang := GetLang(input)
+	if origLang != "en" {
+		t.Errorf("GetLang was incorrect")
 	}
 }
