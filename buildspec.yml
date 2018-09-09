@@ -30,7 +30,7 @@ phases:
       - cd "/go/src/${PACKAGE}"
 
       # Fetch all dependencies
-      #- go get -t ./...
+      - go get -t ./...
 
       # Ensure code passes all lint tests
       #- golint -set_exit_status
@@ -40,7 +40,7 @@ phases:
 
       # Run all tests included with the application
       - echo start unit tests
-      - go test .
+      #- go test .
     finally:
       - echo end of pre-build phase
 
