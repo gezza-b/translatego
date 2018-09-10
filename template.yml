@@ -24,8 +24,10 @@ Resources:
                 - 'cloudwatch:GetMetricStatistics'
               Resource: '*'
       Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: post
+        AlexaSkillEvent:
+          Type: AlexaSkill
+        #GetEvent:
+        #  Type: Api
+        #  Properties:
+        #    Path: /
+        #    Method: post
