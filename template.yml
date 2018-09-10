@@ -1,13 +1,15 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-
+Description: Deploy Lambda
 Resources:
   TranslateFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index
       Runtime: go1.x
-      CodeUri: ./index.zip
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 25
       Events:
         GetEvent:
           Type: Api
