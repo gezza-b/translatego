@@ -2,10 +2,46 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Description: Deploy Lambda
 Resources:
+  TranslateGoRole:                                       # Role name
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal: 
+              Service:
+                - "*"
+            Action: 
+              - "sts:AssumeRole"
+  RolePolicies:
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "TranslateGoPolicy"
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Action: 
+            - "logs:CreateLogGroup"
+            - "logs:CreateLogStream"
+            - "logs:PutLogEvents"
+            - "translate:TranslateText"
+            - "comprehend:DetectDominantLanguage"
+            - "cloudwatch:GetMetricStatistics"
+            Resource: "*"
+            Effect: "Allow"
+      Roles: 
+        - 
+          Ref: "TranslateGoRole"
+
   TranslateFunction:
-    Type: AWS::Serverless::Function
+    #Type: AWS::Serverless::Function
+    Type: "AWS::Lambda::Function"
     Properties:
       Handler: index
+      Role: !GetAtt [ TranslateGoRole, Arn ]
       Runtime: go1.x
       CodeUri: .
       MemorySize: 128
