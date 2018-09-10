@@ -56,18 +56,20 @@ func main() {
 	lambda.Start(Handler)
 }
 
-func Handler(request alexa.Request) alexa.Response {
-	var phrase = request.Body.Intent.Slots["Query"].Value
-
-	//var phrase string = "Guten Tag"
-	var fromLang string = GetLang(phrase)
-	var output string = Translate(fromLang, phrase)
-	// return NewResponse(output), nil
-	return alexa.NewSimpleResponse(output, output)
+func Handler(request alexa.Request) (alexa.Response, error) {
+	return DispatchIntents(request), nil
+	// var phrase = request.Body.Intent.Slots["Query"].Value
+	// //var phrase string = "Guten Tag"
+	// var fromLang string = GetLang(phrase)
+	// var output string = Translate(fromLang, phrase)
+	// // return NewResponse(output), nil
+	// return alexa.NewSimpleResponse(output, output), nil
 }
 
-func DispatchIntents(request alexa.Request) (alexa.Response, error) {
-	var response alexa.Response
-	response = Handler(request)
-	return response, nil
+func DispatchIntents(request alexa.Request) alexa.Response {
+	var phrase = request.Body.Intent.Slots["Query"].Value
+	var fromLang string = GetLang(phrase)
+	var output string = Translate(fromLang, phrase)
+	return alexa.NewSimpleResponse(output, output)
+
 }
