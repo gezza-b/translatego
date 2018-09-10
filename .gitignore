@@ -6,4 +6,4 @@
 /build/**
 /src/github.com
 /src/golang.org
-
+packaged.yml

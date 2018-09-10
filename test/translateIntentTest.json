@@ -1,0 +1,47 @@
+{
+    "session": {
+      "new": false,
+      "sessionId": "amzn1.echo-api.session.1234",
+      "attributes": {},
+      "user": {
+        "userId": "amzn1.ask.account.707549494633"
+      },
+      "application": {
+        "applicationId": "amzn1.ask.skill.b4d3af07-26dc-439b-8545-9208f216a6f5"
+      }
+    },
+    "version": "1.0",
+    "request": {
+      "locale": "en-US",
+      "timestamp": "2016-10-27T21:06:28Z",
+      "type": "IntentRequest",
+      "requestId": "amzn1.echo-api.request.9999",
+      "intent": {
+        "slots": {
+          "Query": {
+            "name": "Query",
+            "value": "Wie get es Dir"
+          }
+        },
+        "name": "TranslateIntent"
+      }
+    },
+    "context": {
+      "AudioPlayer": {
+        "playerActivity": "IDLE"
+      },
+      "System": {
+        "device": {
+          "supportedInterfaces": {
+            "AudioPlayer": {}
+          }
+        },
+        "application": {
+          "applicationId": "amzn1.ask.skill.b4d3af07-26dc-439b-8545-9208f216a6f5"
+        },
+        "user": {
+          "userId": "amzn1.ask.account.707549494633"
+        }
+      }
+    }
+  }

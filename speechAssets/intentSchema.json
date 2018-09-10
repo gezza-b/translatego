@@ -16,11 +16,19 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
+                    "name": "TranslateIntent",
+                    "slots": [
+                        {
+                          "name": "Query",
+                          "type": "AMAZON.SearchQuery"
+                        }
+                      ],
+                    "samples": [
+                        "How are you?"
+                    ]
                 },
                 {
-                    "name": "TranslateIntent",
+                    "name": "TranslateFromDeIntent",
                     "slots": [
                         {
                           "name": "Query",

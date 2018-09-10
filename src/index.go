@@ -61,20 +61,43 @@ func Handler(request alexa.Request) (alexa.Response, error) {
 }
 
 func DispatchIntents(request alexa.Request) alexa.Response {
-	var output string = ""
-	if request.Body.Intent.Name == "TranslateIntent" {
-		var phrase = request.Body.Intent.Slots["Query"].Value
-		fmt.Printf("PHRASE:: ", phrase)
-		fmt.Println("BODY:: ", request.Body)
-		fmt.Println("Intent:: ", request.Body.Intent)
-		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Query"])
-		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Query"].Value)
-		var fromLang string = GetLang(phrase)
-		output = Translate(fromLang, phrase)
-	} else {
-		output = "I am confused."
+	var intent = request.Body.Intent.Name
+	var response alexa.Response
+	switch intent {
+	case "TranslateIntent":
+		response = handleTranslate(request)
+	case "TranslateFromDeIntent":
+		response = handleTranslateFromDe(request)
+	case alexa.CancelIntent:
+		response = handleCancel(request)
 	}
+	return response
+}
 
+func handleTranslate(request alexa.Request) alexa.Response {
+	var phrase = request.Body.Intent.Slots["Query"].Value
+	fmt.Printf("PHRASE:: ", phrase)
+	fmt.Println("Intent:: ", request.Body.Intent)
+	fmt.Printf("Slots:: ", request.Body.Intent.Slots["Query"])
+	fmt.Printf("SlotVal:: ", request.Body.Intent.Slots["Query"].Value)
+	var fromLang string = GetLang(phrase)
+	var output string = Translate(fromLang, phrase)
+	return alexa.NewSimpleResponse(output, output)
+}
+
+func handleTranslateFromDe(request alexa.Request) alexa.Response {
+	var phrase = request.Body.Intent.Slots["Query"].Value
+	fmt.Printf("PHRASE:: ", phrase)
+	fmt.Println("Intent:: ", request.Body.Intent)
+	fmt.Printf("Slots:: ", request.Body.Intent.Slots["Query"])
+	fmt.Printf("SlotVal:: ", request.Body.Intent.Slots["Query"].Value)
+	var fromLang string = _germ
+	var output string = Translate(fromLang, phrase)
+	return alexa.NewSimpleResponse(output, output)
+}
+
+func handleCancel(request alexa.Request) alexa.Response {
+	var output string = "Good bye"
 	return alexa.NewSimpleResponse(output, output)
 }
 
