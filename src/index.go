@@ -58,22 +58,24 @@ func main() {
 
 func Handler(request alexa.Request) (alexa.Response, error) {
 	return DispatchIntents(request), nil
-	// var phrase = request.Body.Intent.Slots["Query"].Value
-	// //var phrase string = "Guten Tag"
-	// var fromLang string = GetLang(phrase)
-	// var output string = Translate(fromLang, phrase)
-	// // return NewResponse(output), nil
-	// return alexa.NewSimpleResponse(output, output), nil
 }
 
 func DispatchIntents(request alexa.Request) alexa.Response {
-	var phrase = "Good day"
-	// var phrase = request.Body.Intent.Slots["Query"].Value
-	fmt.Printf("PHRASE:: ", phrase)
-	fmt.Println(request.Body)
-	fmt.Println(request.Body.Intent)
-	fmt.Printf(request.Body.Intent.Slots["Query"].Value)
-	var fromLang string = GetLang(phrase)
-	var output string = Translate(fromLang, phrase)
+	var output string = ""
+	if request.Body.Intent.Name == "TranslateIntent" {
+		var phrase = "Good day"
+		// var phrase = request.Body.Intent.Slots["Query"].Value
+		fmt.Printf("PHRASE:: ", phrase)
+		fmt.Println("BODY:: ", request.Body)
+		fmt.Println("Intent:: ", request.Body.Intent)
+		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Query"].Value)
+		var fromLang string = GetLang(phrase)
+		output = Translate(fromLang, phrase)
+	} else {
+		output = "I am confused."
+	}
+
 	return alexa.NewSimpleResponse(output, output)
 }
+
+//https://github.com/arienmalec/alexa-go
