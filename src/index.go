@@ -63,12 +63,12 @@ func Handler(request alexa.Request) (alexa.Response, error) {
 func DispatchIntents(request alexa.Request) alexa.Response {
 	var output string = ""
 	if request.Body.Intent.Name == "TranslateIntent" {
-		var phrase = "Good day"
-		// var phrase = request.Body.Intent.Slots["Query"].Value
+		var phrase = request.Body.Intent.Slots["Qyery"].Value
 		fmt.Printf("PHRASE:: ", phrase)
 		fmt.Println("BODY:: ", request.Body)
 		fmt.Println("Intent:: ", request.Body.Intent)
-		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Query"].Value)
+		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Qyery"])
+		fmt.Printf("Slot:: ", request.Body.Intent.Slots["Qyery"].Value)
 		var fromLang string = GetLang(phrase)
 		output = Translate(fromLang, phrase)
 	} else {
