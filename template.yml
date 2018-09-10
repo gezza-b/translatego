@@ -10,6 +10,19 @@ Resources:
       CodeUri: .
       MemorySize: 128
       Timeout: 25
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'logs:CreateLogGroup'
+                - 'logs:CreateLogStream'
+                - 'logs:PutLogEvents'
+                - 'sns:Publish'
+                - 'translate:TranslateText'
+                - 'comprehend:DetectDominantLanguage'
+                - 'cloudwatch:GetMetricStatistics'
+              Resource: '*'
       Events:
         GetEvent:
           Type: Api
