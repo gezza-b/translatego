@@ -71,6 +71,7 @@ func DispatchIntents(request alexa.Request) alexa.Response {
 	case alexa.CancelIntent:
 		response = handleCancel(request)
 	}
+	fmt.Println("response::: ", response)
 	return response
 }
 
