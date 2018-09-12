@@ -50,6 +50,9 @@ phases:
       # Build our go application
       - cd "/go/src/${PACKAGE}"
       - go build -a src/index.go
+      
+      # copy CFN template
+      - aws s3 cp template.yml s3://zip-bachlmayr/template.yml
 
       # Package our application with AWS SAM
       - echo start packaging ${S3_BUCKET}
@@ -63,7 +66,7 @@ post_build:
       - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
     
       # deploy lambda
-      - cd "/go/src/${PACKAGE}"
+      #- cd "/go/src/${PACKAGE}"
       - aws cloudformation create-stack --template-url template.yml --stack-name transGoVirg
       finally:
       - echo end of post_build phase
