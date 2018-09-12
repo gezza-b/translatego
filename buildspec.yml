@@ -52,7 +52,7 @@ phases:
       - go build -a src/index.go
       
       # copy CFN template
-      - aws s3 cp template.yml s3://zip-bachlmayr/template.yml
+      - aws s3 cp ./template.yml s3://zip-bachlmayr/template.yml
 
       # Package our application with AWS SAM
       - echo start packaging ${S3_BUCKET}
