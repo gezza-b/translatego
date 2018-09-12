@@ -50,14 +50,15 @@ phases:
       # Build our go application
       - cd "/go/src/${PACKAGE}"
       - go build -a src/index.go
-      
-      # copy CFN template
-      - aws s3 cp ./template.yml s3://zip-bachlmayr/template.yml
 
       # Package our application with AWS SAM
       - echo start packaging ${S3_BUCKET}
       - aws cloudformation package --template-file template.yml --s3-bucket ${S3_BUCKET} --output-template-file packaged.yml
-    finally:
+     
+      # copy CFN template
+      - aws s3 cp /go/src/${PACKAGE}/template.yml s3://zip-bachlmayr/template.yml
+    
+      finally:
       - echo end of build phase
 
 post_build:
