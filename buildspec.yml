@@ -62,15 +62,15 @@ phases:
     finally:
       - echo end of build phase
 
-#post_build:
-#    commands:
-#      - echo starting the post_build phase
-#      - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
+post_build:
+    commands:
+      - echo starting the post_build phase
+      - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
     
       # deploy lambda
       #- aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/template.yml --stack-name transGoVirg
-#      finally:
-#      - echo end of post_build phase
+      finally:
+      - echo end of post_build phase
 
 artifacts:
   files:
