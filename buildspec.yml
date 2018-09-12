@@ -68,7 +68,7 @@ phases:
       #- aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
     
       # deploy lambda
-      #- aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/template.yml --stack-name transGoVirg
+      - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/template.yml --stack-name transGoVirg
     finally:
       - echo end of post_build phase
 
