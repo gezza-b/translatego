@@ -19,7 +19,7 @@ phases:
       - env
 
       # Install golint
-      #- go get -u github.com/golang/lint/golint
+      - go get -u github.com/golang/lint/golint
 
     finally:
       - echo end of install phase
@@ -52,11 +52,11 @@ phases:
       - go build -a src/index.go
 
       # Package our application with AWS SAM
-      #- echo start packaging ${S3_BUCKET}
+      - echo start packaging ${S3_BUCKET}
       - aws cloudformation package --template-file template.yml --s3-bucket ${S3_BUCKET} --output-template-file packaged.yml
      
       # copy CFN template
-      #- echo start copying ${CODEBUILD_SRC_DIR}/template.yml
+      - echo start copying ${CODEBUILD_SRC_DIR}/template.yml
       #- aws s3 cp ${CODEBUILD_SRC_DIR}/template.yml s3://zip-bachlmayr/template.yml
     
     finally:
