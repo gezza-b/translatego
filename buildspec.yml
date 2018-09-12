@@ -65,7 +65,7 @@ phases:
 post_build:
     commands:
       - echo starting the post_build phase
-      - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
+#      - aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/packaged.yml --stack-name transGoVi
     
       # deploy lambda
       #- aws cloudformation create-stack --template-url https://s3.amazonaws.com/zip-bachlmayr/template.yml --stack-name transGoVirg
