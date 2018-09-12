@@ -59,7 +59,7 @@ phases:
       #- echo start copying ${CODEBUILD_SRC_DIR}/template.yml
       #- aws s3 cp ${CODEBUILD_SRC_DIR}/template.yml s3://zip-bachlmayr/template.yml
     
-      finally:
+    finally:
       - echo end of build phase
 
 #post_build:
